@@ -3,12 +3,15 @@ import { FiShoppingCart } from "react-icons/fi";
 import { PiEyesFill } from "react-icons/pi";
 import { LuPizza } from "react-icons/lu";
 
-function CardPizza({ name, price, ingredients, img }) {
+function CardPizza({ name, price, ingredients, img, desc }) {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <img className="w-full" src={img} alt={name} />
       <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2">{name}</h3>
+        <h3 className="text-xl font-semibold mb-2">Pizza {name}</h3>
+        <p className="text-gray-700 flex items-center justify-center space-x-2 mb-2">
+          {desc}
+        </p>
         <p className="text-gray-600 mb-2 text-lg text-center">Ingredientes:</p>
         <ul className="text-gray-700 flex items-center justify-center space-x-2 mb-2">
           <LuPizza className="text-yellow-500" />
