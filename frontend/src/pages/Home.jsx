@@ -30,6 +30,8 @@ function Home() {
               desc={pizza.desc}
               ingredients={pizza.ingredients}
               price={pizza.price}
+              showDesc={false}
+              showViewMoreButton={true}
             />
           ))}
         </div>

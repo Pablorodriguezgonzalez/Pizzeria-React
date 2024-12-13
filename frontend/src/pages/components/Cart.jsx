@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { formatCurr } from "../utils/formatCurr";
-//import { pizzaCart } from "../../data/pizzas";
+import { pizzaCart } from "../../data/pizzas";
 
 const Cart = () => {
   const [cart, setCart] = useState(pizzaCart);

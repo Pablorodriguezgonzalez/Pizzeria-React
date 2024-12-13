@@ -3,15 +3,25 @@ import { FiShoppingCart } from "react-icons/fi";
 import { PiEyesFill } from "react-icons/pi";
 import { LuPizza } from "react-icons/lu";
 
-function CardPizza({ name, price, ingredients, img, desc }) {
+function CardPizza({
+  name,
+  price,
+  ingredients,
+  img,
+  desc,
+  showDesc,
+  showViewMoreButton,
+}) {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <img className="w-full" src={img} alt={name} />
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">Pizza {name}</h3>
-        <p className="text-gray-700 flex items-center justify-center space-x-2 mb-2">
-          {/* {desc} */}
-        </p>
+        {showDesc && (
+          <p className="text-gray-700 flex items-center justify-center space-x-2 mb-2">
+            {desc}
+          </p>
+        )}
         <p className="text-gray-600 mb-2 text-lg text-center">Ingredientes:</p>
         <ul className="text-gray-700 flex items-center justify-center space-x-2 mb-2">
           <LuPizza className="text-yellow-500" />
@@ -21,9 +31,11 @@ function CardPizza({ name, price, ingredients, img, desc }) {
           Precio: ${formatCurr(price)}
         </p>
         <div className="flex justify-between items-center">
-          <button className="flex items-center px-3 py-1 border border-gray-500 rounded hover:bg-gray-200">
-            Ver Más &nbsp; <PiEyesFill className="h-5 w-5 text-black" />
-          </button>
+          {showViewMoreButton && (
+            <button className="flex items-center px-3 py-1 border border-gray-500 rounded hover:bg-gray-200">
+              Ver Más &nbsp; <PiEyesFill className="h-5 w-5 text-black" />
+            </button>
+          )}
           <button className="flex items-center px-3 py-1 bg-black text-white border border-gray-500 rounded hover:bg-gray-700">
             Añadir &nbsp;
             <FiShoppingCart className="h-5 w-5 text-white" />
