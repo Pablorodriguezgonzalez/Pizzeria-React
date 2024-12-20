@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CardPizza from "./CardPizza";
+import CardPizza from "../components/CardPizza";
+import { useParams } from "react-router-dom";
 
 function Pizza() {
   const [pizza, setPizza] = useState(null);
-  const pizzaId = "p001";
+  const { pizzaId } = useParams();
   const apiUrl = `http://localhost:5000/api/pizzas/${pizzaId}`;
 
   useEffect(() => {
