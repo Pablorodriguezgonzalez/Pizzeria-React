@@ -1,39 +1,33 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Register() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmpassword] = useState("");
 
   const validarDatos = (e) => {
     e.preventDefault();
 
     // Validaciones
-    if (email === "" || password === "" || confirmPassword === "") {
-      alert("Todos los campos son obligatorios");
+    if (email === "" || password === "") {
+      alert("Todos los campos son obligatorios.");
       return;
     }
     if (password.length < 6) {
       alert("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
-    if (password !== confirmPassword) {
-      alert("Las contraseñas no coinciden.");
-      return;
-    }
-    alert("¡Registro exitoso!");
+    alert("¡Inicio de sesión exitoso!");
     setEmail("");
     setPassword("");
-    setConfirmpassword("");
   };
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">
-        Formulario de Registro
+        Formulario de Login
       </h2>
       <form onSubmit={validarDatos} className="space-y-4">
-        {/* Email */}
         <div>
           <label
             htmlFor="email"
@@ -50,8 +44,6 @@ function Register() {
             className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-500"
           />
         </div>
-
-        {/* Contraseña */}
         <div>
           <label
             htmlFor="password"
@@ -68,35 +60,20 @@ function Register() {
             className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-500"
           />
         </div>
-
-        {/* Confirmar Contraseña */}
-        <div>
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Confirmar Contraseña
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmpassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Botón de Enviar */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
         >
-          Registrarse
+          Iniciar Sesión
         </button>
+        <div className="text-center mt-4">
+          <Link to="/register" className="text-blue-500 hover:underline">
+            ¿No estás registrado?, Regístrate
+          </Link>
+        </div>
       </form>
     </div>
   );
 }
 
-export default Register;
+export default Login;

@@ -1,31 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { formatCurr } from "../utils/formatCurr";
-import { pizzaCart } from "../../data/pizzas";
+import { CartContext } from "../context/CartContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const aumentarCantidad = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, count: item.count + 1 } : item
-      )
-    );
-  };
-
-  const disminuirCantidad = (id) => {
-    setCart((prevCart) =>
-      prevCart
-        .map((item) =>
-          item.id === id ? { ...item, count: item.count - 1 } : item
-        )
-        .filter((item) => item.count > 0)
-    );
-  };
-
-  const calcularTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.count, 0);
-  };
+  const { cart, updateQuantity, removeFromCart, calcularTotal } =
+    useContext(CartContext);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -51,22 +30,28 @@ const Cart = () => {
                   <div className="flex-1 ml-4">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
                     <p className="text-gray-600">
-                      ${formatCurr(item.price)} x {item.count}
+                      ${formatCurr(item.price)} x {item.quantity}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <button
                       className="bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-l"
-                      onClick={() => disminuirCantidad(item.id)}
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
                       -
                     </button>
-                    <span className="px-4">{item.count}</span>
+                    <span className="px-4">{item.quantity}</span>
                     <button
                       className="bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-r"
-                      onClick={() => aumentarCantidad(item.id)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       +
+                    </button>
+                    <button
+                      className="ml-4 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Eliminar
                     </button>
                   </div>
                 </li>
@@ -74,8 +59,7 @@ const Cart = () => {
             </ul>
             <div className="mt-6 text-center">
               <h3 className="text-lg font-semibold">
-                Total:$
-                {formatCurr(calcularTotal())}
+                Total: ${formatCurr(calcularTotal())}
               </h3>
             </div>
             <div className="text-center mt-4">

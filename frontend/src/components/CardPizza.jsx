@@ -2,8 +2,12 @@ import { formatCurr } from "../utils/formatCurr";
 import { FiShoppingCart } from "react-icons/fi";
 import { PiEyesFill } from "react-icons/pi";
 import { LuPizza } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 function CardPizza({
+  pizzaId,
   name,
   price,
   ingredients,
@@ -12,6 +16,18 @@ function CardPizza({
   showDesc,
   showViewMoreButton,
 }) {
+  const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext); // Usamos el contexto
+
+  const handleViewMore = () => {
+    navigate(`/pizza/${pizzaId}`);
+  };
+
+  const handleAddToCart = () => {
+    const pizza = { id: pizzaId, name, price, img }; // Estructura del producto
+    addToCart(pizza); // Agrega al carrito
+  };
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <img className="w-full" src={img} alt={name} />
@@ -32,11 +48,17 @@ function CardPizza({
         </p>
         <div className="flex justify-between items-center">
           {showViewMoreButton && (
-            <button className="flex items-center px-3 py-1 border border-gray-500 rounded hover:bg-gray-200">
+            <button
+              onClick={handleViewMore}
+              className="flex items-center px-3 py-1 border border-gray-500 rounded hover:bg-gray-200"
+            >
               Ver Más &nbsp; <PiEyesFill className="h-5 w-5 text-black" />
             </button>
           )}
-          <button className="flex items-center px-3 py-1 bg-black text-white border border-gray-500 rounded hover:bg-gray-700">
+          <button
+            onClick={handleAddToCart}
+            className="flex items-center px-3 py-1 bg-black text-white border border-gray-500 rounded hover:bg-gray-700"
+          >
             Añadir &nbsp;
             <FiShoppingCart className="h-5 w-5 text-white" />
           </button>
@@ -45,4 +67,5 @@ function CardPizza({
     </div>
   );
 }
+
 export default CardPizza;
