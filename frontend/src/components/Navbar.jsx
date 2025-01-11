@@ -5,10 +5,11 @@ import { LuPizza } from "react-icons/lu";
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi";
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 function Navbar() {
   const { calcularTotal } = useContext(CartContext); // Usamos el contexto para calcular el total
-  const token = false;
+  const { token, logout } = useUser();
 
   return (
     <nav className="bg-gray-800 p-4 flex flex-wrap items-center justify-between text-white">
@@ -31,7 +32,10 @@ function Navbar() {
               <GiPadlockOpen className="h-5 w-5 text-yellow-500" />
               <span>Profile</span>
             </Link>
-            <button className="flex items-center space-x-2 px-4 py-2 border border-gray-500 rounded hover:bg-gray-700">
+            <button
+              onClick={() => logout()}
+              className="flex items-center space-x-2 px-4 py-2 border border-gray-500 rounded hover:bg-gray-700"
+            >
               <GiPadlockOpen className="h-5 w-5 text-yellow-500" />
               <span>Logout</span>
             </button>
