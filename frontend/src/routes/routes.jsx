@@ -6,6 +6,8 @@ import Pizza from "../views/Pizza";
 import Profile from "../views/Profile";
 import NotFound from "../views/NotFound";
 import MainLayout from "../layouts/MainLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
+import PublicRoutes from "./PublicRoutes";
 
 const routes = [
   {
@@ -19,17 +21,21 @@ const routes = [
   {
     path: "/register",
     element: (
-      <MainLayout>
-        <Register />
-      </MainLayout>
+      <PublicRoutes>
+        <MainLayout>
+          <Register />
+        </MainLayout>
+      </PublicRoutes>
     ),
   },
   {
     path: "/login",
     element: (
-      <MainLayout>
-        <Login />
-      </MainLayout>
+      <PublicRoutes>
+        <MainLayout>
+          <Login />
+        </MainLayout>
+      </PublicRoutes>
     ),
   },
   {
@@ -49,11 +55,13 @@ const routes = [
     ),
   },
   {
-    path: "profile",
+    path: "/profile",
     element: (
-      <MainLayout>
-        <Profile />
-      </MainLayout>
+      <ProtectedRoutes>
+        <MainLayout>
+          <Profile />
+        </MainLayout>
+      </ProtectedRoutes>
     ),
   },
   {

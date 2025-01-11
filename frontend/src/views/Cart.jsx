@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { formatCurr } from "../utils/formatCurr";
 import { CartContext } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart, calcularTotal } =
     useContext(CartContext);
+  const { token } = useUser();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -63,7 +65,14 @@ const Cart = () => {
               </h3>
             </div>
             <div className="text-center mt-4">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              <button
+                disabled={token}
+                className={` text-white font-bold py-2 px-4 rounded"} ${
+                  token
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-gray-500 hover:bg-gray-600 cursor-not-allowed"
+                }`}
+              >
                 Pagar
               </button>
             </div>
