@@ -1,11 +1,14 @@
+import { useUser } from "../context/UserContext";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useUser();
+  const navigate = useNavigate();
 
-  const validarDatos = (e) => {
+  const validarDatos = async (e) => {
     e.preventDefault();
 
     // Validaciones
@@ -17,9 +20,8 @@ function Login() {
       alert("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
-    alert("¡Inicio de sesión exitoso!");
-    setEmail("");
-    setPassword("");
+    await login(email, password);
+    navigate("/profile");
   };
 
   return (
