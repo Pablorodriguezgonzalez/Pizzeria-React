@@ -1,9 +1,16 @@
+import { useEffect } from "react";
+import { useUser } from "../context/UserContext";
+
 function Profile() {
-  const userEmail = "usuario@example.com"; // Email estático
+  const { getprofile, userData, logout } = useUser();
+
+  useEffect(() => {
+    getprofile();
+  }, []);
 
   const handleLogout = () => {
+    logout();
     alert("Sesión cerrada.");
-    // Aquí se puede implementar la lógica de logout más adelante
   };
 
   return (
@@ -11,7 +18,9 @@ function Profile() {
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
         Perfil de Usuario
       </h2>
-      <p className="text-lg text-gray-700 mb-6">Email: {userEmail}</p>
+      <p className="text-lg text-gray-700 mb-6">
+        Email: {userData?.email || "Cargando..."}
+      </p>
       <button
         onClick={handleLogout}
         className="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
