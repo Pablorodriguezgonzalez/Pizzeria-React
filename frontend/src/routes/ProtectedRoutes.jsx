@@ -4,7 +4,7 @@ import { useUser } from "../context/UserContext";
 const ProtectedRoutes = ({ children }) => {
   const { token } = useUser();
 
-  if (token === false) {
+  if (!token) {
     return <Navigate to="/login" />;
   }
 

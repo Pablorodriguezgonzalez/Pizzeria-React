@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmpassword] = useState("");
+  const { register } = useUser();
 
-  const validarDatos = (e) => {
+  const validarDatos = async (e) => {
     e.preventDefault();
 
     // Validaciones
@@ -22,7 +24,8 @@ function Register() {
       alert("Las contraseñas no coinciden.");
       return;
     }
-    alert("¡Registro exitoso!");
+
+    await register(email, password);
     setEmail("");
     setPassword("");
     setConfirmpassword("");
